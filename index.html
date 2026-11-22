@@ -1,1 +1,28 @@
-
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>대한민국 8도 여행지도</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#1d2939;font-family:Arial,"Malgun Gothic",sans-serif}main{max-width:900px;margin:auto;padding:28px 16px 48px}h1{text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,36px)}.lead{text-align:center;color:#5d6878;line-height:1.7;margin:0 0 22px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.region{min-height:120px;border:2px solid #fff;border-radius:16px;padding:18px;text-align:center;font-size:21px;font-weight:700;color:#172033;cursor:pointer;box-shadow:0 4px 15px #17203312;transition:.18s}.region:hover,.region:focus{filter:brightness(1.14);transform:translateY(-3px);box-shadow:0 8px 22px #17203325;outline:3px solid #fff}.region small{display:block;font-size:13px;font-weight:500;margin-top:8px}.gyeonggi{background:#cde9fa}.gangwon{background:#f8e8ac}.chungbuk{background:#e4d6f2}.chungnam{background:#f5cbd1}.jeonbuk{background:#cbdafa}.jeonnam{background:#d8c9ed}.gyeongbuk{background:#f3c9d9}.gyeongnam{background:#c4e8df}.admin{margin-top:26px;background:white;padding:18px;border-radius:16px;border:1px solid #e1e6ee}.admin h2{margin:0 0 6px}.hint{font-size:13px;color:#667085;line-height:1.6}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.field{border:1px solid #e4e7ec;border-radius:10px;padding:12px}.field label{display:block;font-weight:700;margin-bottom:7px}select,input{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px;font-size:14px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}button.action{border:0;border-radius:9px;padding:12px 16px;background:#24436b;color:white;font-weight:700;cursor:pointer}.secondary{background:#e8edf4!important;color:#25364d!important}#msg{font-size:14px;color:#256044;margin-top:12px}@media(max-width:580px){.fields{grid-template-columns:1fr}.region{min-height:95px;font-size:18px}}
+</style></head><body><main><h1>대한민국 8도 여행지도</h1><p class="lead">지역을 선택하면 연결된 네이버 블로그 또는 카페 게시글이 새 창에서 열립니다.</p>
+<div class="grid" id="map">
+<button class="region gyeonggi" data-id="gyeonggi">경기도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region gangwon" data-id="gangwon">강원도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region chungbuk" data-id="chungbuk">충청북도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region chungnam" data-id="chungnam">충청남도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region jeonbuk" data-id="jeonbuk">전라북도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region jeonnam" data-id="jeonnam">전라남도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region gyeongbuk" data-id="gyeongbuk">경상북도<small>여행 이야기 바로가기 ↗</small></button>
+<button class="region gyeongnam" data-id="gyeongnam">경상남도<small>여행 이야기 바로가기 ↗</small></button>
+</div>
+<section class="admin"><h2>지역별 링크 관리</h2><p class="hint">각 지역의 연결 종류와 게시글 주소를 입력한 뒤 저장하세요. 이 페이지는 입력한 주소를 현재 브라우저에 저장합니다. 아래 '설정 파일 다운로드'로 주소 목록을 보관할 수 있습니다.</p><div class="fields" id="fields"></div><div class="actions"><button class="action" id="save">주소 저장</button><button class="action secondary" id="export">설정 파일 다운로드</button><button class="action secondary" id="reset">초기화</button></div><div id="msg" aria-live="polite"></div></section>
+</main><script>
+const regions=[["gyeonggi","경기도"],["gangwon","강원도"],["chungbuk","충청북도"],["chungnam","충청남도"],["jeonbuk","전라북도"],["jeonnam","전라남도"],["gyeongbuk","경상북도"],["gyeongnam","경상남도"]];
+const empty=Object.fromEntries(regions.map(([id])=>[id,{type:"blog",url:""}]));
+let links={...empty,...JSON.parse(localStorage.getItem("eightProvincesLinks")||"{}")};
+const fields=document.getElementById("fields");
+regions.forEach(([id,name])=>{const d=document.createElement("div");d.className="field";d.innerHTML='<label>'+name+'</label><select id="type-'+id+'"><option value="blog">네이버 블로그</option><option value="cafe">네이버 카페</option></select><input id="url-'+id+'" type="url" placeholder="https:// 게시글 주소">';fields.append(d);document.querySelector('[data-id="'+id+'"]').addEventListener("click",()=>{const u=links[id]?.url;if(!u){alert(name+" 주소가 아직 등록되지 않았습니다.");return;}window.open(u,"_blank","noopener,noreferrer");});});
+function load(){regions.forEach(([id])=>{document.getElementById("type-"+id).value=links[id]?.type||"blog";document.getElementById("url-"+id).value=links[id]?.url||"";});}
+function read(){const o={};regions.forEach(([id])=>o[id]={type:document.getElementById("type-"+id).value,url:document.getElementById("url-"+id).value.trim()});return o;}
+document.getElementById("save").onclick=()=>{links=read();localStorage.setItem("eightProvincesLinks",JSON.stringify(links));document.getElementById("msg").textContent="주소를 이 브라우저에 저장했습니다.";};
+document.getElementById("export").onclick=()=>{const blob=new Blob([JSON.stringify(read(),null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="8도_여행지도_링크설정.json";a.click();URL.revokeObjectURL(a.href);document.getElementById("msg").textContent="설정 파일을 다운로드했습니다.";};
+document.getElementById("reset").onclick=()=>{if(!confirm("모든 주소를 지울까요?"))return;links={...empty};localStorage.removeItem("eightProvincesLinks");load();document.getElementById("msg").textContent="주소를 초기화했습니다.";};load();
+</script></body></html>

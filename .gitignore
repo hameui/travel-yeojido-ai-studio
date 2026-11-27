@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+dist/
+.vercel/
+.env*
+!.env.example
+*.tsbuildinfo
+
+# Private keys and certificate files
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+*.jks

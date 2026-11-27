@@ -11,8 +11,8 @@ export default function GangwonDistrictSelector() {
     <section aria-label="강원특별자치도 시군 선택" style={{ width: "min(760px, 100%)", margin: "0 auto" }}>
       <div style={{ border: "1px solid #e8e5de", background: "#fff", padding: "24px", borderRadius: "4px" }}>
         <p style={{ margin: "0 0 8px", color: "#718071", fontSize: "11px", letterSpacing: ".12em" }}>SELECT A DISTRICT</p>
-        <h2 style={{ margin: "0 0 12px", fontFamily: "inherit", fontSize: "20px", fontWeight: 500, color: "#30332f" }}>강원특별자치도 시·군 선택</h2>
-        <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "13px" }}>지도나 지역 이름을 누르면 선택한 곳이 녹색으로 표시됩니다.</p>
+        <h2 style={{ margin: "0 0 12px", fontFamily: "inherit", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>강원특별자치도 시·군 선택</h2>
+        <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도나 지역 이름을 누르면 선택한 곳이 녹색으로 표시됩니다.</p>
 
         <div style={{ width: "min(100%, 560px)", margin: "0 auto 22px" }}>
           <svg viewBox="0 0 800 699" role="group" aria-label="강원특별자치도 18개 시군 선택 지도" style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}>
@@ -38,13 +38,13 @@ export default function GangwonDistrictSelector() {
             })}
             {districts.map((district) => (
               <text key={district.id + "-label"} x={district.cx} y={district.cy} textAnchor="middle" dominantBaseline="middle"
-                fontSize="15" fontWeight={selected === district.id ? 700 : 500}
-                fill={selected === district.id ? "#fff" : "#4c554d"} style={{ pointerEvents: "none", userSelect: "none" }}>
+                fontSize="18" fontWeight={selected === district.id ? 800 : 700}
+                fill={selected === district.id ? "#fff" : "#344238"} stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth="2.5" paintOrder="stroke" style={{ pointerEvents: "none", userSelect: "none" }}>
                 {district.id}
               </text>
             ))}
           </svg>
-          <p style={{ margin: "8px 0 0", textAlign: "center", color: "#85877f", fontSize: "12px" }}>지도에서 원하는 시·군 영역을 직접 선택하세요.</p>
+          <p style={{ margin: "8px 0 0", textAlign: "center", color: "#85877f", fontSize: "15px", fontWeight: 600 }}>지도에서 원하는 시·군 영역을 직접 선택하세요.</p>
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(105px, 1fr))", gap: "9px" }}>
@@ -52,18 +52,18 @@ export default function GangwonDistrictSelector() {
             const active = selected === district.id;
             return (
               <button key={district.id} type="button" aria-pressed={active} onClick={() => setSelected(district.id)}
-                style={{ minHeight: "46px", borderRadius: "3px", border: active ? "1px solid #536d5d" : "1px solid #e8e5de",
+                style={{ minHeight: "54px", borderRadius: "3px", border: active ? "1px solid #536d5d" : "1px solid #e8e5de",
                   background: active ? "#536d5d" : "#fbfaf8", color: active ? "#fff" : "#4b504a",
-                  fontSize: "14px", fontWeight: active ? 600 : 400, cursor: "pointer", transition: "all .15s ease" }}>
+                  fontSize: "17px", fontWeight: 700, cursor: "pointer", transition: "all .15s ease" }}>
                 {district.id}
               </button>
             );
           })}
         </div>
-        <div aria-live="polite" style={{ marginTop: "20px", padding: "14px 16px", background: "#f5f7f4", color: "#536d5d", fontSize: "14px", minHeight: "48px" }}>
+        <div aria-live="polite" style={{ marginTop: "20px", padding: "14px 16px", background: "#f5f7f4", color: "#536d5d", fontSize: "17px", fontWeight: 700, minHeight: "52px" }}>
           {selected ? <><strong>{selected}</strong> 지역을 선택했습니다.</> : "아직 선택된 지역이 없습니다."}
         </div>
-        <p style={{ margin: "12px 0 0", color: "#999", fontSize: "11px" }}>지도 경계 자료: 통계청 SGIS 행정구역 경계 기반, statgarten/maps (MIT)</p>
+        <p style={{ margin: "12px 0 0", color: "#999", fontSize: "13px" }}>지도 경계 자료: 통계청 SGIS 행정구역 경계 기반, statgarten/maps (MIT)</p>
       </div>
     </section>
   );

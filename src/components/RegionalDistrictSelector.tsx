@@ -22,7 +22,8 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
         <h2 style={{ margin: "0 0 12px", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>시·군 선택</h2>
         <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도에서 원하는 시·군을 선택하면 해당 지역이 녹색으로 표시됩니다.</p>
 
-        <div style={{ width: "min(100%, 640px)", height: "349px", margin: "0 auto 22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "min(100%, 640px)", margin: "0 auto 22px" }}>
+          <div style={{ height: "349px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible" }}>
             {map.items.map((district) => {
               const active = selected === district.id;
@@ -54,6 +55,7 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
               </text>
             ))}
           </svg>
+          </div>
           <p style={{ margin: "8px 0 0", textAlign: "center", color: "#85877f", fontSize: "15px", fontWeight: 600 }}>지도에서 원하는 시·군 영역을 직접 선택하세요.</p>
         </div>
 

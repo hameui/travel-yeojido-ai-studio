@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getRegionBySlug } from "@/data/regions";
 import GangwonDistrictSelector from "@/components/GangwonDistrictSelector";
+import RegionalDistrictSelector from "@/components/RegionalDistrictSelector";
 
 export function generateStaticParams() {
   return ["gyeonggi", "gangwon", "chungbuk", "chungnam", "jeonbuk", "jeonnam", "gyeongbuk", "gyeongnam"].map((slug) => ({ slug }));
@@ -23,7 +24,7 @@ export default async function RegionPage({ params }: { params: Promise<{ slug: s
         <p className="region-page-index">TRAVEL YEOJIDO <span>—</span> 0{["gyeonggi", "gangwon", "chungbuk", "chungnam", "jeonbuk", "jeonnam", "gyeongbuk", "gyeongnam"].indexOf(slug) + 1}</p>
         <h1>{region.name}</h1>
         <p className="region-page-description">{region.description}</p>
-        {slug === "gangwon" ? <GangwonDistrictSelector /> : <div className="coming-soon"><span /> 여행 이야기를 준비하고 있어요</div>}
+        {slug === "gangwon" ? <GangwonDistrictSelector /> : <RegionalDistrictSelector regionSlug={slug} />}
         <Link className="back-home" href="/">← 전체 여행지도 보기</Link>
       </section>
       <footer className="region-page-footer">© 2026 TRAVEL YEOJIDO · 대한민국의 모든 여행을 위하여</footer>

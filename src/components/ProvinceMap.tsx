@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from "geojson";
 import { regions } from "@/data/regions";
-import { regionCafeLinks } from "@/data/region-cafes";
 
 type Properties = { CTPRVN_CD: string; CTP_KOR_NM: string };
 type ProvinceFeature = Feature<Polygon | MultiPolygon, Properties>;
@@ -51,17 +50,14 @@ export default function ProvinceMap() {
             <g filter="url(#province-shadow)">
               {regions.map((region) => {
                 const feature = data.features.find((item) => item.properties.CTPRVN_CD === region.code);
-                const cafeLink = regionCafeLinks.find((link) => link.slug === region.slug);
-                if (!feature || !cafeLink) return null;
+                if (!feature) return null;
                 const active = activeSlug === region.slug;
                 const centroid = projection(geoCentroid(feature));
                 return (
                   <g key={region.code}>
                     <a
-                      href={cafeLink.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${cafeLink.regionName} 네이버 카페 게시글 새 탭에서 열기`}
+                      href={`/regions/${region.slug}`}
+                      aria-label={`${region.name} 시·군 선택 지도 열기`}
                       onMouseEnter={() => setActiveSlug(region.slug)}
                       onMouseLeave={() => setActiveSlug(null)}
                       onFocus={() => setActiveSlug(region.slug)}
@@ -74,7 +70,7 @@ export default function ProvinceMap() {
                         strokeWidth={active ? 3.2 : 2.2}
                         className={`province-shape${active ? " is-active" : ""}`}
                       >
-                        <title>{cafeLink.regionName} — 네이버 카페 게시글 새 탭에서 열기</title>
+                        <title>{region.name} — 시·군 선택 지도 열기</title>
                       </path>
                     </a>
                     {centroid && <text className={`map-label${active ? " is-active" : ""}`} x={centroid[0]} y={centroid[1]}>{region.shortName}</text>}

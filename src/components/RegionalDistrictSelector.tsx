@@ -24,7 +24,7 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
 
         <div style={{ width: "min(100%, 640px)", margin: "0 auto 22px" }}>
           <div style={{ height: "349px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible" }}>
+          <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible", transform: regionSlug === "gyeonggi" ? "scale(1.15)" : "none", transformOrigin: "center center" }}>
             {map.items.map((district) => {
               const active = selected === district.id;
               return district.d.map((path, index) => (

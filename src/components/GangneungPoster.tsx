@@ -3,19 +3,19 @@
 import { useEffect, useState } from "react";
 
 const places = [
-  // 사진 원의 중심과 크기를 포스터 이미지 기준(%)으로 맞춘 클릭 영역
-  { id: "1", name: "경포대", x: 52, y: 14, w: 30, h: 25 },
-  { id: "2", name: "오죽헌", x: 71.3, y: 21.9, w: 21, h: 17.5 },
-  { id: "3", name: "강문해변", x: 71.8, y: 37.2, w: 21, h: 17.5 },
-  { id: "4", name: "아쿠아리움", x: 74.8, y: 50.8, w: 19.7, h: 16.5 },
-  { id: "5", name: "정동진역", x: 74.4, y: 64.9, w: 17.2, h: 14.5 },
-  { id: "6", name: "하슬라아트월드", x: 68.8, y: 77.9, w: 19.7, h: 16.5 },
-  { id: "7", name: "안반데기", x: 51.6, y: 77.9, w: 19.7, h: 16.5 },
-  { id: "8", name: "주문진수산시장", x: 32.2, y: 77.8, w: 19.7, h: 16.5 },
-  { id: "9", name: "강릉중앙시장", x: 23.1, y: 71.1, w: 17.2, h: 14.5 },
-  { id: "10", name: "정동심곡바다부채길", x: 25.1, y: 59, w: 21, h: 17.5 },
-  { id: "11", name: "아르떼뮤지엄강릉", x: 23.7, y: 46.6, w: 17.8, h: 15 },
-  { id: "12", name: "강릉솔향수목원", x: 26.2, y: 32.9, w: 18.5, h: 15.5 },
+  // 포스터에 인쇄된 금색 번호 배지의 중심에 클릭용 번호를 겹쳐 표시합니다.
+  { id: "1", name: "경포대", x: 42.1, y: 5.5 },
+  { id: "2", name: "오죽헌", x: 80.4, y: 19.8 },
+  { id: "3", name: "강문해변", x: 84.2, y: 37.9 },
+  { id: "4", name: "아쿠아리움", x: 84.2, y: 54.5 },
+  { id: "5", name: "정동진역", x: 84, y: 72.3 },
+  { id: "6", name: "하슬라아트월드", x: 79.5, y: 84.9 },
+  { id: "7", name: "안반데기", x: 45.4, y: 87.5 },
+  { id: "8", name: "주문진수산시장", x: 26.1, y: 87.3 },
+  { id: "9", name: "강릉중앙시장", x: 16.2, y: 78.7 },
+  { id: "10", name: "정동심곡바다부채길", x: 16.7, y: 64 },
+  { id: "11", name: "아르떼뮤지엄강릉", x: 15.9, y: 48.6 },
+  { id: "12", name: "강릉솔향수목원", x: 19.2, y: 34.1 },
 ];
 
 const storageKey = "travel-yeojido-gangneung-links";
@@ -23,6 +23,7 @@ const storageKey = "travel-yeojido-gangneung-links";
 export default function GangneungPoster() {
   const [links, setLinks] = useState<Record<string, string>>({});
   const [editing, setEditing] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [notice, setNotice] = useState("포스터 속 명소 사진을 누르면 연결된 여행 글이 열립니다.");
   const [drafts, setDrafts] = useState<Record<string, string>>({});
 
@@ -40,6 +41,7 @@ export default function GangneungPoster() {
   }, []);
 
   function openPlace(id: string, name: string) {
+    setSelectedId(id);
     const url = links[id]?.trim();
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -87,17 +89,14 @@ export default function GangneungPoster() {
             <button
               key={place.id}
               type="button"
-              className={`gangneung-hotspot${links[place.id] ? " has-link" : ""}`}
-              style={{
-                left: `${place.x}%`,
-                top: `${place.y}%`,
-                width: `${place.w}%`,
-                height: `${place.h}%`,
-              }}
-              aria-label={`${place.name} 여행 글 열기`}
-              title={`${place.name}${links[place.id] ? " — 링크 등록됨" : " — 링크 미등록"}`}
+              className={`gangneung-hotspot${selectedId === place.id ? " is-selected" : ""}${links[place.id] ? " has-link" : ""}`}
+              style={{ left: `${place.x}%`, top: `${place.y}%` }}
+              aria-label={`${place.id}번 ${place.name} 여행 글 열기`}
+              title={`${place.id}번 ${place.name}${links[place.id] ? " — 링크 등록됨" : " — 링크 미등록"}`}
               onClick={() => openPlace(place.id, place.name)}
-            />
+            >
+              <span>{place.id}</span>
+            </button>
           ))}
         </div>
       </section>

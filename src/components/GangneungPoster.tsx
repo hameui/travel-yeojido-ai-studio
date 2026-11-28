@@ -79,7 +79,7 @@ export default function GangneungPoster() {
         <div className="gangneung-poster-image-wrap">
           <img
             className="gangneung-poster-image"
-            src="/images/gangneung-poster.webp"
+            src="/images/강릉.png"
             alt="강릉의 경포대, 오죽헌, 강문해변 등 12개 명소를 소개하는 여행 포스터"
           />
           {places.map((place) => (

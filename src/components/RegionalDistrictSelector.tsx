@@ -24,7 +24,7 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
 
         <div style={{ width: "min(100%, 640px)", margin: "0 auto 22px" }}>
           <div style={{ height: "349px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible", transform: regionSlug === "gyeonggi" ? "scale(1.15)" : "none", transformOrigin: "center center" }}>
+          <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible", transform: regionSlug === "gyeonggi" ? "scale(1.2)" : "none", transformOrigin: "center center" }}>
             {map.items.map((district) => {
               const active = selected === district.id;
               return district.d.map((path, index) => (
@@ -47,9 +47,9 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
             })}
             {map.items.map((district) => (
               <text key={district.id + "-label"} x={district.cx} y={district.cy} textAnchor="middle" dominantBaseline="middle"
-                fontSize={18 * labelScale} fontWeight={800}
+                fontSize={18 * labelScale * (regionSlug === "gyeonggi" ? 0.7 / 1.2 : 1)} fontWeight={800}
                 fill={selected === district.id ? "#fff" : "#344238"}
-                stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth={3 * labelScale} paintOrder="stroke"
+                stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth={3 * labelScale * (regionSlug === "gyeonggi" ? 0.7 / 1.2 : 1)} paintOrder="stroke"
                 style={{ pointerEvents: "none", userSelect: "none" }}>
                 {district.id}
               </text>

@@ -76,7 +76,7 @@ export default function GangneungPoster() {
       <section className="gangneung-poster-intro">
         <p>YOUR LOCAL JOURNEY</p>
         <h1>강릉, 꼭 가봐야 할 명소 12</h1>
-        <div>사진을 선택해 내가 저장한 여행 이야기를 만나보세요.</div>
+        <div>포스터의 금색 번호를 누르면 해당 명소의 여행 이야기가 열립니다.</div>
       </section>
       <section className="gangneung-poster-stage" aria-label="강릉 여행 명소 포스터">
         <div className="gangneung-poster-image-wrap">

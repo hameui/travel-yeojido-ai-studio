@@ -16,7 +16,8 @@ export default function GangwonDistrictSelector() {
         <h2 style={{ margin: "0 0 12px", fontFamily: "inherit", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>강원특별자치도 시·군 선택</h2>
         <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도에서 원하는 시·군을 선택하면 해당 지역이 녹색으로 표시됩니다.</p>
 
-        <div style={{ width: "min(100%, 640px)", height: "349px", margin: "0 auto 22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: "min(100%, 640px)", margin: "0 auto 22px" }}>
+          <div style={{ height: "349px", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg viewBox="0 0 800 699" preserveAspectRatio="xMidYMid meet" role="group" aria-label="강원특별자치도 18개 시군 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible" }}>
             {districts.map((district) => {
               const active = selected === district.id;
@@ -46,6 +47,7 @@ export default function GangwonDistrictSelector() {
               </text>
             ))}
           </svg>
+          </div>
           <p style={{ margin: "8px 0 0", textAlign: "center", color: "#85877f", fontSize: "15px", fontWeight: 600 }}>지도에서 원하는 시·군 영역을 직접 선택하세요.</p>
         </div>
 

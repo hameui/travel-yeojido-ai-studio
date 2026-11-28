@@ -6,6 +6,8 @@ const districts = [{"id":"강릉시","d":"M 621.92 339.1 623.66 345.34 646.72 36
 
 export default function GangwonDistrictSelector() {
   const [selected, setSelected] = useState<string | null>(null);
+  const mapScale = Math.min(640 / 800, 349 / 699);
+  const labelScale = 0.8 / mapScale;
 
   return (
     <section aria-label="강원특별자치도 시군 선택" style={{ width: "min(760px, 100%)", margin: "0 auto" }}>
@@ -14,8 +16,8 @@ export default function GangwonDistrictSelector() {
         <h2 style={{ margin: "0 0 12px", fontFamily: "inherit", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>강원특별자치도 시·군 선택</h2>
         <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도에서 원하는 시·군을 선택하면 해당 지역이 녹색으로 표시됩니다.</p>
 
-        <div style={{ width: "min(100%, 560px)", margin: "0 auto 22px" }}>
-          <svg viewBox="0 0 800 699" role="group" aria-label="강원특별자치도 18개 시군 선택 지도" style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}>
+        <div style={{ width: "min(100%, 640px)", height: "349px", margin: "0 auto 22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg viewBox="0 0 800 699" preserveAspectRatio="xMidYMid meet" role="group" aria-label="강원특별자치도 18개 시군 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible" }}>
             {districts.map((district) => {
               const active = selected === district.id;
               return (
@@ -38,8 +40,8 @@ export default function GangwonDistrictSelector() {
             })}
             {districts.map((district) => (
               <text key={district.id + "-label"} x={district.cx} y={district.cy} textAnchor="middle" dominantBaseline="middle"
-                fontSize="18" fontWeight={selected === district.id ? 800 : 700}
-                fill={selected === district.id ? "#fff" : "#344238"} stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth="2.5" paintOrder="stroke" style={{ pointerEvents: "none", userSelect: "none" }}>
+                fontSize={18 * labelScale} fontWeight={selected === district.id ? 800 : 700}
+                fill={selected === district.id ? "#fff" : "#344238"} stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth={2.5 * labelScale} paintOrder="stroke" style={{ pointerEvents: "none", userSelect: "none" }}>
                 {district.id}
               </text>
             ))}

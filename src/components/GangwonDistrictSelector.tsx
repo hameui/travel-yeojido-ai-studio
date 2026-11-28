@@ -12,7 +12,7 @@ export default function GangwonDistrictSelector() {
       <div style={{ border: "1px solid #e8e5de", background: "#fff", padding: "24px", borderRadius: "4px" }}>
         <p style={{ margin: "0 0 8px", color: "#718071", fontSize: "11px", letterSpacing: ".12em" }}>SELECT A DISTRICT</p>
         <h2 style={{ margin: "0 0 12px", fontFamily: "inherit", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>강원특별자치도 시·군 선택</h2>
-        <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도나 지역 이름을 누르면 선택한 곳이 녹색으로 표시됩니다.</p>
+        <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도에서 원하는 시·군을 선택하면 해당 지역이 녹색으로 표시됩니다.</p>
 
         <div style={{ width: "min(100%, 560px)", margin: "0 auto 22px" }}>
           <svg viewBox="0 0 800 699" role="group" aria-label="강원특별자치도 18개 시군 선택 지도" style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}>
@@ -47,21 +47,8 @@ export default function GangwonDistrictSelector() {
           <p style={{ margin: "8px 0 0", textAlign: "center", color: "#85877f", fontSize: "15px", fontWeight: 600 }}>지도에서 원하는 시·군 영역을 직접 선택하세요.</p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(105px, 1fr))", gap: "9px" }}>
-          {districts.map((district) => {
-            const active = selected === district.id;
-            return (
-              <button key={district.id} type="button" aria-pressed={active} onClick={() => setSelected(district.id)}
-                style={{ minHeight: "54px", borderRadius: "3px", border: active ? "1px solid #536d5d" : "1px solid #e8e5de",
-                  background: active ? "#536d5d" : "#fbfaf8", color: active ? "#fff" : "#4b504a",
-                  fontSize: "17px", fontWeight: 700, cursor: "pointer", transition: "all .15s ease" }}>
-                {district.id}
-              </button>
-            );
-          })}
-        </div>
         <div aria-live="polite" style={{ marginTop: "20px", padding: "14px 16px", background: "#f5f7f4", color: "#536d5d", fontSize: "17px", fontWeight: 700, minHeight: "52px" }}>
-          {selected ? <><strong>{selected}</strong> 지역을 선택했습니다.</> : "아직 선택된 지역이 없습니다."}
+          {selected ? <><strong style={{ fontSize: "22px", marginRight: "6px" }}>{selected}</strong><span>지역을 선택했습니다.</span></> : "지도에서 여행할 지역을 선택해 주세요."}
         </div>
         <p style={{ margin: "12px 0 0", color: "#999", fontSize: "13px" }}>지도 경계 자료: 통계청 SGIS 행정구역 경계 기반, statgarten/maps (MIT)</p>
       </div>

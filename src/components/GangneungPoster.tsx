@@ -8,8 +8,8 @@ const places = [
   { id: "2", name: "오죽헌", x: 80.4, y: 19.8 },
   { id: "3", name: "강문해변", x: 84.2, y: 37.9 },
   { id: "4", name: "아쿠아리움", x: 84.2, y: 54.5 },
-  { id: "5", name: "정동진역", x: 84, y: 72.3 },
-  { id: "6", name: "하슬라아트월드", x: 79.5, y: 84.9 },
+  { id: "5", name: "정동진역", x: 81.8, y: 68 },
+  { id: "6", name: "하슬라아트월드", x: 77.5, y: 82.2 },
   { id: "7", name: "안반데기", x: 45.4, y: 87.5 },
   { id: "8", name: "주문진수산시장", x: 26.1, y: 87.3 },
   { id: "9", name: "강릉중앙시장", x: 16.2, y: 78.7 },
@@ -24,7 +24,7 @@ export default function GangneungPoster() {
   const [links, setLinks] = useState<Record<string, string>>({});
   const [editing, setEditing] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [notice, setNotice] = useState("포스터 속 명소 사진을 누르면 연결된 여행 글이 열립니다.");
+  const [notice, setNotice] = useState("금색 번호를 누르면 해당 명소의 여행 글이 열립니다.");
   const [drafts, setDrafts] = useState<Record<string, string>>({});
 
   useEffect(() => {

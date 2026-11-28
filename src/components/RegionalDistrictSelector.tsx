@@ -10,6 +10,10 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
 
   if (!map) return null;
+  const [, , viewWidth, viewHeight] = map.viewBox.split(" ").map(Number);
+  // Match the Jeonbuk reference map: 640px wide × about 349px high.
+  const mapScale = Math.min(640 / viewWidth, 349 / viewHeight);
+  const labelScale = 0.8 / mapScale;
 
   return (
     <section aria-label="시군 선택 지도" style={{ width: "min(760px, 100%)", margin: "0 auto" }}>
@@ -18,8 +22,8 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
         <h2 style={{ margin: "0 0 12px", fontSize: "24px", fontWeight: 700, color: "#30332f" }}>시·군 선택</h2>
         <p style={{ margin: "0 0 16px", color: "#85877f", fontSize: "17px", fontWeight: 600 }}>지도에서 원하는 시·군을 선택하면 해당 지역이 녹색으로 표시됩니다.</p>
 
-        <div style={{ width: "min(100%, 640px)", margin: "0 auto 22px" }}>
-          <svg viewBox={map.viewBox} role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "auto", overflow: "visible" }}>
+        <div style={{ width: "min(100%, 640px)", height: "349px", margin: "0 auto 22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg viewBox={map.viewBox} preserveAspectRatio="xMidYMid meet" role="group" aria-label="행정구역 선택 지도" style={{ display: "block", width: "100%", height: "100%", overflow: "visible" }}>
             {map.items.map((district) => {
               const active = selected === district.id;
               return district.d.map((path, index) => (
@@ -42,9 +46,9 @@ export default function RegionalDistrictSelector({ regionSlug }: Props) {
             })}
             {map.items.map((district) => (
               <text key={district.id + "-label"} x={district.cx} y={district.cy} textAnchor="middle" dominantBaseline="middle"
-                fontSize="18" fontWeight={800}
+                fontSize={18 * labelScale} fontWeight={800}
                 fill={selected === district.id ? "#fff" : "#344238"}
-                stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth="3" paintOrder="stroke"
+                stroke={selected === district.id ? "#536d5d" : "#fff"} strokeWidth={3 * labelScale} paintOrder="stroke"
                 style={{ pointerEvents: "none", userSelect: "none" }}>
                 {district.id}
               </text>
